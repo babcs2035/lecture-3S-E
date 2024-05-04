@@ -1,0 +1,2 @@
+plot "audio.txt" with linespoints
+pause -1

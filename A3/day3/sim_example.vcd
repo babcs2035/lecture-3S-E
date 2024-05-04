@@ -1,0 +1,75 @@
+$date
+	Mon Apr 22 13:10:19 2024
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1ps
+$end
+$scope module sim_example $end
+$scope module example_mod $end
+$var wire 1 ! clk $end
+$var wire 1 " inA $end
+$var wire 1 # out1 $end
+$var wire 1 $ out2 $end
+$var reg 1 % out1_reg $end
+$var reg 1 & out2_reg $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+0&
+x%
+0$
+x#
+0"
+1!
+$end
+#30000
+0!
+#60000
+0#
+0%
+1!
+#90000
+0!
+#100000
+1"
+#120000
+1$
+1&
+1#
+1%
+1!
+#150000
+0!
+#180000
+1!
+#200000
+0$
+0&
+0"
+#210000
+0!
+#240000
+0#
+0%
+1!
+#270000
+0!
+#300000
+1$
+1&
+1"
+1!
+#330000
+0!
+#360000
+1#
+1%
+1!
+#390000
+0!
+#400000
