@@ -28,11 +28,6 @@ module sim_counter;
       start <= 1'b0;
       #130;
 
-      // #70;
-      // start <= 1'b1;
-      // #20;
-      // start <= 1'b0;
-
       $finish;
     end
 
