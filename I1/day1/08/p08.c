@@ -150,22 +150,18 @@ double H_expression()
   }
   case '(':
   {
-    ++p;
     double x = E_expression();
     if (*p == ')')
     {
-      ++p;
       return x;
     }
     else
     {
       syntax_error();
-      return -1;
     }
   }
   default:
     syntax_error();
-    return -1;
   }
 }
 
@@ -244,12 +240,12 @@ double E_expression()
     if (*p == '+')
     {
       p++;
-      x += +F_expression();
+      x = +F_expression();
     }
     else if (*p == '-')
     {
       p++;
-      x += -F_expression();
+      x = -F_expression();
     }
     else
     {

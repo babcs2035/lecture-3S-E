@@ -15,7 +15,7 @@
 
 int main()
 {
-  FILE *fp = fopen("p005.c", "rb");
+  FILE *fp = fopen("p05.c", "rb");
   char buf[100];
   while (1)
   {
