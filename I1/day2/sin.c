@@ -11,10 +11,10 @@ int main(int argc, char **argv)
   int f = atoi(argv[2]);
   int n = atoi(argv[3]);
 
-  int arr[n];
+  short arr[n];
   for (int i = 0; i < n; ++i)
   {
-    arr[i] = A * sin(2 * M_PI * f * i / n);
+    arr[i] = A * sin(2. * M_PI * f * i / 44100);
   }
 
   write(1, arr, sizeof(arr));
