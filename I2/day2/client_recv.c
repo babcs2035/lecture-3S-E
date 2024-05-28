@@ -1,8 +1,9 @@
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <arpa/inet.h>
 #include <netinet/in.h>
-#include <netinet/ip.h>
-#include <netinet/tcp.h>
 
 int main(int argc, char *argv[])
 {
@@ -15,15 +16,17 @@ int main(int argc, char *argv[])
   int port = atoi(argv[2]);
 
   int s = socket(PF_INET, SOCK_STREAM, 0);
-  struct sockaddr_in addr;
-  addr.sin_family = AF_INET;
-  inet_aton(ip, &addr.sin_addr);
-  addr.sin_port = htons(port);
-  if (connect(s, (struct sockaddr *)&addr, sizeof(addr)) != 0)
+  struct sockaddr_in server_addr;
+  server_addr.sin_family = AF_INET;
+  inet_aton(ip, &server_addr.sin_addr);
+  server_addr.sin_port = htons(port);
+  if (connect(s, (struct sockaddr *)&server_addr, sizeof(server_addr)) != 0)
   {
+    printf("[client] connect failed\n");
     perror("connect");
     exit(1);
   }
+  printf("[client] Connected: %s:%d\n", inet_ntoa(server_addr.sin_addr), port);
 
   size_t buf_size = 1024;
   char buf[buf_size];
@@ -36,6 +39,7 @@ int main(int argc, char *argv[])
     }
     if (r < 0)
     {
+      printf("[client] recv failed\n");
       perror("recv");
       exit(1);
     }
@@ -43,4 +47,5 @@ int main(int argc, char *argv[])
   }
 
   close(s);
+  printf("[client] Disconnected\n");
 }
