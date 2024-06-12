@@ -3,6 +3,7 @@
     "stat.h": "c",
     "fcntl.h": "c",
     "in.h": "c",
-    "inet.h": "c"
+    "inet.h": "c",
+    "socket.h": "c"
   }
 }
