@@ -1,9 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <sys/types.h>
-#include <sys/socket.h>
+#include <unistd.h>
+#include <string.h>
 #include <arpa/inet.h>
-#include <netinet/in.h>
+#define BUF_SIZE 512
+#define DEBUG
 
 int main(int argc, char *argv[])
 {
@@ -19,10 +20,11 @@ int main(int argc, char *argv[])
     server_addr.sin_family = AF_INET;
     inet_aton(ip, &server_addr.sin_addr);
     server_addr.sin_port = htons(port);
+    printf("[client] Trying to connect to %s:%d...\n", inet_ntoa(server_addr.sin_addr), port);
     if (connect(s, (struct sockaddr *)&server_addr, sizeof(server_addr)) != 0)
     {
-      printf("[client] Connect to %s:%d failed", inet_ntoa(server_addr.sin_addr), port);
-      perror("connect");
+      printf("[client] Connect to %s:%d failed\n", inet_ntoa(server_addr.sin_addr), port);
+      perror("[client] connect");
       exit(1);
     }
     printf("[client] Connected to %s:%d\n", inet_ntoa(server_addr.sin_addr), port);
@@ -49,14 +51,11 @@ int main(int argc, char *argv[])
   }
   printf("[client] Playing...\n");
 
-  size_t buf_size = 1 << 12;
-  char buf[buf_size];
+  char buf[BUF_SIZE];
   while (1)
   {
-    ssize_t r;
-
     // send
-    r = read(fileno(fp_r), buf, buf_size);
+    ssize_t r = read(fileno(fp_r), buf, BUF_SIZE);
     if (r == 0)
     {
       printf("\n[client] read ended\n");
@@ -74,7 +73,7 @@ int main(int argc, char *argv[])
     }
 
     // receive
-    r = read(s, buf, buf_size);
+    r = read(s, buf, BUF_SIZE);
     if (r == 0)
     {
       printf("\n[client] recv ended\n");
